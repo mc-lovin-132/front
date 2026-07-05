@@ -1,0 +1,22 @@
+.task{
+    transition: transform 0.2s ease;
+}
+
+
+.task:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.task:active {
+  transform: scale(0.99); 
+}
+
+.task-check{
+    width: 25px;
+    height: 25px;
+}
+
+.trash-icon{
+    font-size: 20px;
+}
+
