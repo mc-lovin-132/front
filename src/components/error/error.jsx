@@ -7,10 +7,10 @@ function Error(props){
     </div>
 
   
-    <div class="display-4 fw-bold text-danger mb-1">{props.response.code}</div>
+    <div class="display-4 fw-bold text-danger mb-1">{props.error.response.status}</div>
 
 
-    <h2 class="text-white fw-semibold mb-2">{props.message}</h2>
+    <h2 class="text-white fw-semibold mb-2">{props.error.message}</h2>
 
     <p class="text-secondary-emphasis mb-4">Запрашиваемая страница не существует или была перемещена.</p>
 

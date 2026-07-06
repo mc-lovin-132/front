@@ -1,10 +1,11 @@
 
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Detail from './components/detail_task/detail_tasks';
+import EditTaks from './components/edit_task/edit_tasks';
 import Header from './components/header/header';
 import Tasks from './components/tasks/tasks';
 import Profile from './components/profile/profile';
+import CreateTask from './components/create/create';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
     <Header></Header>
     <Routes>
       <Route path="/tasks" element={<Tasks></Tasks>}></Route>
-      <Route path="/detail" element={<Detail></Detail>}></Route>
+      <Route path="/tasks/edit/:id" element={<EditTaks></EditTaks>}></Route>
       <Route path="/profile" element={<Profile></Profile>}></Route>
+      <Route path="/add" element={<CreateTask></CreateTask>}></Route>
     </Routes>
     </div>
   );

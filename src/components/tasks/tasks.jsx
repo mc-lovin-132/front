@@ -27,7 +27,7 @@ function Tasks() {
         setError(err.message);
       })
       .finally(() => {
-        sleep(3000).then(() => {
+        sleep(1000).then(() => {
           setLoading(false);
         });
       });
@@ -38,9 +38,13 @@ function Tasks() {
 
   return (
     <div className="text-secondary container px-5 mx-5">
+      <div className="text-secondary container px-5 mx-5">
+      <button className="btn btn-outline-primary">add <i className="bi bi-plus"></i></button>
+      </div>
       <ul className="container px-5 mx-5 task-list list-unstyled">
+        
         {tasks.map((task) => {
-          return <Task title={task.title} deadline={task.deadline}></Task>;
+          return <Task title={task.title} description={task.description} status={task.status} deadline={task.deadline} id={task.id}></Task>;
         })}
       </ul>
     </div>

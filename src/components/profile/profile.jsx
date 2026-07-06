@@ -1,6 +1,39 @@
 import "./profile.css";
+import Loading from "../loading/loading";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Error from "../error/error";
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function Profile() {
+  const url = "http://localhost:8000/users/1";
+
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((response) => {
+        setUser(response.data.user);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        sleep(1000).then(() => {
+          setLoading(false);
+        });
+      });
+  }, []);
+
+  if (loading) return <Loading></Loading>;
+  if (error) return <Error error={error}></Error>;
+
+
   return (
     <div className="container px-5 mx-5">
     <div className="container px-5 mx-5 d-flex justify-content-center">
@@ -10,9 +43,9 @@ function Profile() {
           <h2 className="mb-0">И</h2>
         </div>
         <div className="">
-          <h4 className="mb-0">Ivan Ivanov</h4>
+          <h4 className="mb-0">{user.name}</h4>
         </div>
-        <div className="text-secondary">example@gmail.com</div>
+        <div className="text-secondary">{user.email}</div>
       </div>
       <hr></hr>
       {/* noti toggle */}
@@ -20,7 +53,7 @@ function Profile() {
            <label class="form-check-label" for="switchCheckDefault">
 
             <i class="bi bi-bell me-2"></i>
-          Default switch checkbox input
+          notifications
         </label>
         <input
           class="form-check-input"
@@ -36,7 +69,7 @@ function Profile() {
          <label class="form-check-label" for="switchCheckDefault">
 
             <i class="bi bi-graph-up me-2"></i>
-          Default switch checkbox input
+          report noti
 
         </label>
         <input
@@ -92,7 +125,7 @@ function Profile() {
                     id="inputPassword5"
                     class="form-control mb-3"
                     aria-describedby="passwordHelpBlock"
-                    value="Ivan Ivanov"
+                    defaultValue={user.name}
                   ></input>
 
                   <label for="inputPassword5" class="form-label mb-1">
@@ -102,7 +135,7 @@ function Profile() {
                     id="inputPassword5"
                     class="form-control mb-3"
                     aria-describedby="passwordHelpBlock"
-                    value="example@gmail.com"
+                    defaultValue={user.email}
                   ></input>
 
                   <label for="inputPassword5" class="form-label mb-1">
