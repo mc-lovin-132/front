@@ -95,7 +95,7 @@ function Task(props) {
               <i className="bi bi-flag me-1"></i>Priority
             </label>
             <div className="bg-dark rounded-3 p-2 px-3 border border-secondary">
-              Hight
+              {props.priority.name}
             </div>
           </div>
 

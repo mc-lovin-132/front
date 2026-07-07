@@ -22,6 +22,7 @@ function Tasks() {
       .get(url)
       .then((response) => {
         setTasks(response.data);
+        console.log(response.data)
       })
       .catch((err) => {
         setError(err.message);
@@ -44,7 +45,7 @@ function Tasks() {
       <ul className="container px-5 mx-5 task-list list-unstyled">
         
         {tasks.map((task) => {
-          return <Task title={task.title} description={task.description} status={task.status} deadline={task.deadline} id={task.id}></Task>;
+          return <Task title={task.title} description={task.description} status={task.status} priority={task.priority} deadline={task.deadline} id={task.id}></Task>;
         })}
       </ul>
     </div>
