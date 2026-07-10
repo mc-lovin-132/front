@@ -10,10 +10,12 @@ function sleep(ms) {
 }
 function EditTask() {
   const { id } = useParams();
+  // used urls
   const url = `http://localhost:8000/tasks/${id}`;
   const statusesUrl = "http://localhost:8000/tasks/statuses";
   const priorityUrl = "http://localhost:8000/tasks/priorities";
 
+  // states for display data on page
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,12 +28,14 @@ function EditTask() {
   const [loadingPriorities, setLoadingPriorities] = useState(true);
   const [errorPriorities, setErrorPriorities] = useState(null);
 
+  // states for catch data from inputs and send to api
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState(0);
   const [priority, setPriority] = useState(0);
 
+  // input change handlers
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
     log();
@@ -53,21 +57,20 @@ function EditTask() {
     log();
   };
 
-  // Очистка формы
+  // clear states
   const resetForm = () => {
     setTitle("");
     setDescription("");
     setDeadline("");
-    setStatus("");
-    setPriority("");
-    setSuccess(false);
-    setError(null);
+    setStatus(0);
+    setPriority(0);
   };
 
   function log() {
     console.log(title, description, deadline, status, priority);
   }
 
+  // validation and send data to server 
   function sendUpdateData() {
     const dataToSend = {};
 
@@ -100,7 +103,7 @@ function EditTask() {
     sleep(500)
     console.log(dataToSend)
     axios
-      .post("http://localhost:8000/tasks", dataToSend, {
+      .patch(url, dataToSend, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -117,6 +120,9 @@ function EditTask() {
       })
   }
 
+  // before component will be rendered,
+  // requesting data for page display 
+  // from server
   useEffect(() => {
     axios
       .get(url)
@@ -193,11 +199,7 @@ function EditTask() {
                 <i className="bi bi-circle me-1"></i>Status
               </div>
 
-              {/* <input
-                className="form-control"
-                value={task.status.name}
-             
-              ></input> */}
+    
 
               <div class="dropdown">
                 <button
